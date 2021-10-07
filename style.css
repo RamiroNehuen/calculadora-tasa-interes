@@ -1,0 +1,136 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+.navbar {
+    background: rgb(44, 152, 229);
+    background: linear-gradient(270deg, rgba(44, 152, 229, 1) 0%, rgba(22, 83, 126, 1) 100%);
+    font-weight: 500;
+}
+
+/* ESTILOS INDEX */
+.img-calc {
+    padding: 5rem;
+    background-image: url(/img/calculator-gd34e45365_1920.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.titulo {
+    text-align: center;
+    color: #073763;
+    padding: 3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.titulo h1 {
+    margin: auto;
+}
+
+.info-container,
+.info-container-ad,
+.dolar-hoy {
+    background-color: #cfe2f3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0%;
+    padding: 3rem;
+    color: #333b44;
+}
+
+.info p {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.btn-container {
+    background-color: #6fa8dc;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+.btn-container button {
+    margin: auto 1rem;
+    padding: 1rem;
+}
+
+.resultados {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    color: #0099CC;
+    background: white;
+    border: 2px solid #0099CC;
+    border-radius: 6px;
+    color: #0099CC;
+    padding: 16px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s;
+    /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+.valoresMemoria,
+.resultados {
+    color: #073763;
+    background-color: #cfe2f3;
+}
+
+.valoresMemoria {
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+}
+
+/* FIN INDEX */
+
+/* ESTILOS ACERCA DE */
+.info-container-ad {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 23.8vh;
+}
+
+/* FIN ESTILOS ACERCA DE */
+
+/* ESTILOS DOLAR */
+.dolar-hoy {
+    text-align: center;
+}
+
+/* FIN ESTILOS DOLAR */
+
+/* FOOTER */
+footer {
+    color: white;
+    background-color: #16537e;
+    display: flex;
+    justify-content: center;
+}
+
+/* FIN FOOTER */
