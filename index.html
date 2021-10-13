@@ -12,7 +12,14 @@
     <meta name="author" content="Ramiro Nehuen Barreiro Corvalan">
 
     <!-- DESCRIPCIÓN -->
-    <meta name="description" content="Calculadora Tasa de Interes: Sistema Frances - ENTREGA CLASE 6">
+    <meta name="description" content="Calculadora Tasa de Interes: Sistema Frances y Sistema Aleman">
+
+    <!--OPEN GRAPH META TAGS-->
+    <meta property="og:title" content="Calculadora Tasa de Interes: Sistema Frances y Sistema Aleman">
+    <meta property="og:description"
+        content="Calculadora Tasa de Interes: Sistema Frances y Sistema Aleman. Además, ¡Cotización del dolar actualizada!">
+    <meta property="og:image" content="url(img/calculator-gd34e45365_1920.jpg)">
+    <meta property="og:author" content="Ramiro N. Barrerio C.">
 
     <!-- BOOTSTRAP 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -24,6 +31,20 @@
     <!-- JQuery 3.6 CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- EFECTO TITULOS -->
+    <script src="/js/animacion.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".intro").flipping_text({
+                tickerTime: 5, // Define a time between each ticket in milliseconds. The default value is 10.
+                customRandomChar: false, // You can use your own random strings by defining them here. The default value is false which will use my random string: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+                tickerCount: 10, // Set the number of characters randomly shown before the real text is shown here. The default value is 10.
+                opacityEffect: true, // You can toggle the opacity effect here. Set this to false if you don't want the random text to fade in. The default value is 10.
+                resetOnChange: false // Toggle this to true if you want the plugin to stop and fill in all the text immediately when the user changes browser's tab. The default value is false.
+            });
+        })
+    </script>
 
     <title>Calculadora Tasa de Interes: Sistema Frances - ENTREGA CLASE 6</title>
 </head>
@@ -55,11 +76,11 @@
     <!-- INICIO SECCIÓN PRINCIPAL -->
     <section class="principal">
         <div class="titulo">
-            <h1>Calculadora Tasa de Interes: Sistema Frances</h1>
+            <h1 class="intro">Calculadora Tasa de Interes: Sistema Frances y Aleman</h1>
         </div>
 
         <div class="info-container">
-            <h2>Ingrese la información</h2>
+            <h2 class="intro">Ingrese la información</h2>
 
             <div class="info">
                 <p>
@@ -85,18 +106,38 @@
     <!-- FIN SECCION PRINCIPAL -->
 
     <!-- SECCION DONDE SE IMPRIMEN EN PANTALLA LOS RESULTADOS -->
-    <section class="resultados">
-        <div>
-            <ul id="cuota"></ul>
+    <section class="resultados-frances">
+        <div class="titulo-seccion1"></div>
+        <div class="valores">
+            <div>
+                <ul id="cuota"></ul>
+            </div>
+            <div>
+                <ul id="interes"></ul>
+            </div>
+            <div>
+                <ul id="amortizacion"></ul>
+            </div>
+            <div>
+                <ul id="saldo-deuda"></ul>
+            </div>
         </div>
-        <div>
-            <ul id="interes"></ul>
-        </div>
-        <div>
-            <ul id="amortizacion"></ul>
-        </div>
-        <div>
-            <ul id="saldo-deuda"></ul>
+    </section>
+    <section class="resultados-aleman">
+        <div class="titulo-seccion2"></div>
+        <div class="valores">
+            <div>
+                <ul id="cuotaAleman"></ul>
+            </div>
+            <div>
+                <ul id="interesAleman"></ul>
+            </div>
+            <div>
+                <ul id="amortizacionAleman"></ul>
+            </div>
+            <div>
+                <ul id="saldo-deudaAleman"></ul>
+            </div>
         </div>
     </section>
     <!-- FIN DE SECCIÓN DONDE SE IMPRIMEN EN LOS RESULTADOS EN LA PANTALLA -->
@@ -128,4 +169,5 @@
 <script src="/js/btnCalcular.js"></script>
 <script src="/js/btnLimpiar.js"></script>
 <script src="/js/btnRepetirOp.js"></script>
+
 </html>

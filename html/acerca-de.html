@@ -12,7 +12,14 @@
     <meta name="author" content="Ramiro Nehuen Barreiro Corvalan">
 
     <!-- DESCRIPCIÓN -->
-    <meta name="description" content="Calculadora Tasa de Interes: Sistema Frances - ENTREGA CLASE 6">
+    <meta name="description" content="Calculadora Tasa de Interes: Sistema Frances y Aleman">
+
+    <!--OPEN GRAPH META TAGS-->
+    <meta property="og:title" content="Calculadora Tasa de Interes: Sistema Frances y Sistema Aleman">
+    <meta property="og:description"
+        content="Calculadora Tasa de Interes: Sistema Frances y Sistema Aleman. Además, ¡Cotización del dolar actualizada!">
+    <meta property="og:image" content="url(img/calculator-gd34e45365_1920.jpg)">
+    <meta property="og:author" content="Ramiro N. Barrerio C.">
 
     <!-- CSS AOS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -24,7 +31,25 @@
     <!-- Style CSS -->
     <link rel="stylesheet" href="../style.css">
 
-    <title>Calculadora Tasa de Interes: Sistema Frances - ENTREGA CLASE 6</title>
+    <!-- JQuery 3.6 CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- EFECTO TITULOS -->
+    <script src="../js/animacion.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".intro").flipping_text({
+                tickerTime: 5, // Define a time between each ticket in milliseconds. The default value is 10.
+                customRandomChar: false, // You can use your own random strings by defining them here. The default value is false which will use my random string: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+                tickerCount: 10, // Set the number of characters randomly shown before the real text is shown here. The default value is 10.
+                opacityEffect: true, // You can toggle the opacity effect here. Set this to false if you don't want the random text to fade in. The default value is 10.
+                resetOnChange: false // Toggle this to true if you want the plugin to stop and fill in all the text immediately when the user changes browser's tab. The default value is false.
+            });
+        })
+    </script>
+
+    <title>Acerca de</title>
 </head>
 
 <body>
@@ -53,19 +78,32 @@
     <!-- INICIO SECCIÓN PRINCIPAL -->
     <section class="principal-ad">
         <div class="titulo">
-            <h1>Calculadora Tasa de Interes: Sistema Frances</h1>
+            <h1 class="intro">Calculadora Tasa de Interes: Sistema Frances y Aleman</h1>
         </div>
 
         <div class="info-container-ad">
-            <h2>¿De que se trata?</h2>
+            <h2 class="animacion-aparecer">¿De que se trata?</h2>
 
             <div class="info-ad">
-                <p class="definicion">
-                    En el sistema de Amortización Francés, el valor de la cuota (sin considerar el IVA) se mantiene
-                    constante durante todo el préstamo, modificándose el valor de los componentes. Mientras el
-                    componente de interés va disminuyendo al transcurrir las cuotas, el componente amortización de
-                    capital va aumentando.
-                </p>
+                <div>
+                    <h2 class="animacion-aparecer">Sistema Frances</h2>
+                    <p class="definicion animacion-aparecer">
+                        En el sistema de Amortización Francés, el valor de la cuota (sin considerar el IVA) se mantiene
+                        constante durante todo el préstamo, modificándose el valor de los componentes. Mientras el
+                        componente de interés va disminuyendo al transcurrir las cuotas, el componente amortización de
+                        capital va aumentando.
+                    </p>
+                </div>
+                <div>
+                    <h2 class="animacion-aparecer">Sistema Aleman</h2>
+                    <p class="definicion animacion-aparecer">
+                        El sistema de amortización alemán es un método de amortización de prestamos que se caracteriza
+                        por
+                        unos términos amortizativos constantes e intereses anticipados, calculados estos sobre el
+                        capital
+                        vivo del período anterior.
+                    </p>
+                </div>
             </div>
         </div>
     </section>

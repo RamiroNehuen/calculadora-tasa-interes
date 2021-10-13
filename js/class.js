@@ -25,12 +25,12 @@ class BaseCalc {
     // -------SISTEMA ALEMAN-------------
     //MÉTODO PARA DETERMINAR LA AMORTIZACIÓN SISTEMA ALEMAN
     amortizacionAleman() {
-        return parseFloat(this.valorPrestamo / this.cantCuotas).toFixed(2);
+        return parseFloat(this.valorPrestamo).toFixed(2) / parseFloat(this.cantCuotas).toFixed(2);
     }
 
     // MÉTODO PARA CALCULAR LA CUOTA SISTEMA ALEMAN
     cuotaAleman() {
-        return (this.amortizacionAleman + this.interes).toFixed(2);
+        return parseFloat(this.amortizacionAleman()) + parseFloat(this.interes());
     }
 
 };

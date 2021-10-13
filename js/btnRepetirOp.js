@@ -6,21 +6,19 @@ $(document).ready(() => {
         cantidadDeCuotas = JSON.parse(localStorage.getItem('cantidadDeCuotas'));
         valorDelPrestamo = JSON.parse(localStorage.getItem('valorDelPrestamo'));
 
-        $('#tnaMemoria').append(`<p class="valorEnMemoria" style="display: none">El valor de TNA en memoria es:<br>${JSON.parse(localStorage.getItem('tasaNominalAnual'))}</p>`);
-
-        $('#cantCuotasMemoria').append(`<p class="valorEnMemoria" style="display: none">La cant. de cuotas en memoria es:<br>${JSON.parse(localStorage.getItem('cantidadDeCuotas'))}</p>`);
-
-        $('#valorPrestamoMemoria').append(`<p class="valorEnMemoria" style="display: none">El valor del prestamo en memoria es:<br>${JSON.parse(localStorage.getItem('valorDelPrestamo'))}</p>`);
-
         let interes = parseFloat(tasaNominalAnual) / 12;
-        let caso1 = new SistemaFrances(tasaNominalAnual, interes, cantidadDeCuotas, valorDelPrestamo);
+        let caso1 = new BaseCalc(tasaNominalAnual, interes, cantidadDeCuotas, valorDelPrestamo);
 
+        // INICIO SISTEMA FRANCES
 
         //BUCLE PARA DEVOLVER LAS CUOTAS
         const arrayCuotas = [];
         for (let i = 0; i < parseInt(cantidadDeCuotas); i++) {
             if (i <= parseInt(cantidadDeCuotas)) {
-                arrayCuotas.push(`\nCuota nro. ${i + 1} = ${caso1.cuotaDelPrestamo().toFixed(2)}`);
+                arrayCuotas.push({
+                    texto: `\nCuota nro. ${i + 1} =`,
+                    valor: caso1.cuotaDelPrestamo().toFixed(2)
+                });
             } else {
                 console.log('ERROR')
             };
@@ -28,43 +26,106 @@ $(document).ready(() => {
 
         //BUCLE PARA CALCULAR LA AMORTIZACIÓN
         let amortizacionAuxiliar = caso1.amortizacion();
-        const arrayAmortizacionTexto = [];
-        const arrayAmortizacionValores = [];
+        const arrayAmortizacionFrances = [];
 
         for (let i = 0; i < parseInt(cantidadDeCuotas); i++) {
             if (i == 0) {
-                arrayAmortizacionTexto.push(`\nAmortizacion cuota nro. ${i + 1} = ${amortizacionAuxiliar.toFixed(2)}`);
-                arrayAmortizacionValores.push(amortizacionAuxiliar.toFixed(2));
+                arrayAmortizacionFrances.push({
+                    texto: `\nAmortizacion cuota nro. ${i + 1} =`,
+                    valor: amortizacionAuxiliar.toFixed(2)
+                });
             } else {
                 amortizacionAuxiliar = amortizacionAuxiliar * (1 + (interes / 100));
-                arrayAmortizacionTexto.push(`\nAmortizacion cuota nro. ${i + 1} = ${amortizacionAuxiliar.toFixed(2)}`);
-                arrayAmortizacionValores.push(amortizacionAuxiliar.toFixed(2));
+                arrayAmortizacionFrances.push({
+                    texto: `\nAmortizacion cuota nro. ${i + 1} =`,
+                    valor: amortizacionAuxiliar.toFixed(2)
+                });
             };
         };
 
         //FIN BUCLE AMORTIZACION
 
         //MAP PARA CALCULAR EL INTERES RESPECTIVO A CADA CUOTA - 
-        const arrayIneteres = arrayAmortizacionValores.map((amortizacion, index) => `\nInteres cuota ${index + 1} = ${(caso1.cuotaDelPrestamo() - amortizacion).toFixed(2)}`);
+        const arrayIneteres = arrayAmortizacionFrances.map((amortizacion, index) => `\nInteres cuota ${index + 1} = ${(caso1.cuotaDelPrestamo() - amortizacion.valor).toFixed(2)}`);
         //FIN MAP PARA CALCULAR INTERES
 
         //PARA CALCULAR EL SALDO DE DEUDA
         let saldoAuxiliar = parseInt(valorDelPrestamo);
 
-        const arraySaldoDeuda = arrayAmortizacionValores.map((amortizacion) => {
-            const saldoActual = (saldoAuxiliar - amortizacion).toFixed(2);
+        const arraySaldoDeuda = arrayAmortizacionFrances.map((amortizacion, index) => {
+            const saldoActual = (saldoAuxiliar - amortizacion.valor).toFixed(2);
             saldoAuxiliar = saldoActual;
-            return saldoActual;
+            return `Saldo cuota ${index + 1} = ${saldoActual}`;
         });
-
-        const arraySaldoDeudaText = arraySaldoDeuda.map((saldo, index) => `Saldo cuota ${index + 1} = ${saldo} `)
         //FIN CALCULAR SALDO DE DEUDA
 
+        // FIN SISTEMA FRANCES
+
+        // INICIO SISTEMA ALEMAN
+
+        // LISTADO VALORES AMORTIZACIÓN SISTEMA ALEMAN
+        const arrayAmortizacionAleman = [];
+        for (let i = 0; i < parseInt(cantidadDeCuotas); i++) {
+            if (i <= parseInt(cantidadDeCuotas)) {
+                arrayAmortizacionAleman.push({
+                    texto: `\nAmortizacion cuota nro. ${i + 1} =`,
+                    valor: caso1.amortizacionAleman()
+                });
+            } else {
+                console.log('ERROR')
+            };
+        };
+
+        //CALCULAR VALORES PARA LISTADO DE SALDO DE DEUDA SISTEMA ALEMAN
+        let saldoDeudaAlemanAux = valorDelPrestamo - caso1.amortizacionAleman();
+        const arraySaldoDeudaAleman = [];
+
+        for (let i = 0; i < parseInt(cantidadDeCuotas); i++) {
+            if (i == 0) {
+                arraySaldoDeudaAleman.push({
+                    texto: `\nSaldo cuota nro. ${i + 1} = `,
+                    valor: saldoDeudaAlemanAux.toFixed(2)
+                });
+            } else {
+                saldoDeudaAlemanAux = saldoDeudaAlemanAux - caso1.amortizacionAleman();
+                arraySaldoDeudaAleman.push({
+                    texto: `\nSaldo cuota nro. ${i + 1} = `,
+                    valor: saldoDeudaAlemanAux.toFixed(2)
+                });
+            };
+        };
+
+        // CALCULAR VALROES PARA LISTADO DE INTERES SISTEMA ALEMAN
+        const arrayInteresAleman = [];
+        for (let [index] of arraySaldoDeudaAleman.entries()) {
+            if (index == 0) {
+                arrayInteresAleman.push({
+                    texto: `\nInteres cuota nro. ${index + 1} = `,
+                    valor: (valorDelPrestamo * (interes / 100)).toFixed(2)
+                })
+            } else {
+                arrayInteresAleman.push({
+                    texto: `\nInteres cuota nro. ${index + 1} = `,
+                    valor: (arraySaldoDeudaAleman[index - 1].valor * (interes / 100)).toFixed(2)
+                })
+            }
+        }
+
+        //CALCULAR VALORES PARA LISTADO DE CUOTAS SISTEMA ALEMAN
+        const arrayCuotasAleman = arrayInteresAleman.map((interes, index) => `\nCuota nro. ${index + 1} = ${(parseFloat(caso1.amortizacionAleman()) + parseFloat(interes.valor)).toFixed(2)}`);
+        //FIN SISTEMA ALEMAN
+
+
+        // IMPRIMIR RESULTADOS EN PANTALLA 
+
+
+        //TITULO PARA SISTEMA RFRANCES
+        $('.titulo-seccion1').prepend(`<h3 class="titulo-valores" style="display: none">RESULTADOS SEGÚN SISTEMA FRANCES</h3>`);
 
 
         //INCORPORA EN EL DOM UN LISTADO CON EL CONTENIDO DEL ARRAY DE CUOTAS 
         for (const cuotas of arrayCuotas) {
-            $('#cuota').append(`<li class="listas" style="display: none">${cuotas}</li>`);
+            $('#cuota').append(`<li class="listas" style="display: none">${cuotas.texto} ${cuotas.valor}</li>`);
         }
         //FIN LISTADO CUOTAS
 
@@ -75,24 +136,61 @@ $(document).ready(() => {
         //FIN LISTADO DE INTERESES
 
         //INCORPORA EN EL DOM UN LISTADO CON EL CONTENIDO DEL ARRAY DE AMORTIZACIÓN X CADA CUOTA
-        for (const amortizacion of arrayAmortizacionTexto) {
-            $('#amortizacion').append(`<li class="listas" style="display: none">${amortizacion}</li>`);
+        for (const amortizacion of arrayAmortizacionFrances) {
+            $('#amortizacion').append(`<li class="listas" style="display: none">${amortizacion.texto} ${amortizacion.valor}</li>`);
         }
         //FIN DE LISTADO AMORTIZACION
 
         //INCORPORA EN EL DOM UN LISTADO CON EL CONTENIDO DEL ARRAY DE SALDO DE DEUDA X CADA CUOTA
-        for (const saldo of arraySaldoDeudaText) {
+        for (const saldo of arraySaldoDeuda) {
             $('#saldo-deuda').append(`<li class="listas" style="display: none">${saldo}</li>`)
         }
         //FIN LISTADO SALDO DE DEUDA
+
+
+        // TITULO PARA SISTEMA ALEMAN
+        $('.titulo-seccion2').prepend(`<h3 class="titulo-valores" style="display: none">RESULTADOS SEGÚN SISTEMA ALEMAN</h3>`);
+
+
+        //INCORPORA EN EL DOM UN LISTADO CON EL CONTENIDO DEL ARRAY DE CUOTAS 
+        for (const cuotas of arrayCuotasAleman) {
+            $('#cuotaAleman').append(`<li class="listas" style="display: none">${cuotas}</li>`);
+        }
+        //FIN LISTADO CUOTAS
+
+        //INCORPORA EN EL DOM UN LISTADO CON EL CONTENIDO DEL ARRAY DE INTERES X CADA CUOTA
+        for (const interes of arrayInteresAleman) {
+            $('#interesAleman').append(`<li class="listas" style="display: none">${interes.texto} ${interes.valor}</li>`);
+        }
+        //FIN LISTADO DE INTERESES
+
+        //INCORPORA EN EL DOM UN LISTADO CON EL CONTENIDO DEL ARRAY DE AMORTIZACIÓN X CADA CUOTA
+        for (const amortizacion of arrayAmortizacionAleman) {
+            $('#amortizacionAleman').append(`<li class="listas" style="display: none">${amortizacion.texto} ${amortizacion.valor}</li>`);
+        }
+        //FIN DE LISTADO AMORTIZACION
+
+        //INCORPORA EN EL DOM UN LISTADO CON EL CONTENIDO DEL ARRAY DE SALDO DE DEUDA X CADA CUOTA
+        for (const saldo of arraySaldoDeudaAleman) {
+            $('#saldo-deudaAleman').append(`<li class="listas" style="display: none">${saldo.texto} ${saldo.valor}</li>`)
+        }
+        //FIN LISTADO SALDO DE DEUDA
+
+        //FIN IMPRIMIR RESULTADOS EN PANTALLA
+
+        // IMPRIMIR VALORES EN MEMORIA
+        $('#tnaMemoria').append(`<p class="valorEnMemoria" style="display: none">El valor de TNA en memoria es:<br>${JSON.parse(localStorage.getItem('tasaNominalAnual'))}</p>`);
+
+        $('#cantCuotasMemoria').append(`<p class="valorEnMemoria" style="display: none">La cant. de cuotas en memoria es:<br>${JSON.parse(localStorage.getItem('cantidadDeCuotas'))}</p>`);
+
+        $('#valorPrestamoMemoria').append(`<p class="valorEnMemoria" style="display: none">El valor del prestamo en memoria es:<br>${JSON.parse(localStorage.getItem('valorDelPrestamo'))}</p>`);
+        //FIN IMPRIMIR VALORES EN MEMORIA
+
+
+        // EFECTOS
         $('.valorEnMemoria').fadeIn('slow');
+        $('.titulo-valores').fadeIn('slow');
         $('.listas').slideDown('slow');
     });
     //FIN BONTON PARA REPETIR ÚLTIMA OPERACIÓN
-
-
-
-
-
-
 });

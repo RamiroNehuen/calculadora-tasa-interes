@@ -21,8 +21,8 @@
 }
 
 .titulo {
-    text-align: center;
     color: #073763;
+    text-align: center;
     padding: 3rem;
     display: flex;
     justify-content: center;
@@ -30,6 +30,11 @@
 
 .titulo h1 {
     margin: auto;
+}
+
+
+.animacion-aparecer {
+    display: none;
 }
 
 .info-container,
@@ -64,9 +69,15 @@
     padding: 1rem;
 }
 
-.resultados {
+.resultados-frances,
+.resultados-aleman {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.valores {
+    display: flex;
 }
 
 button {
@@ -94,7 +105,8 @@ button:hover {
 }
 
 .valoresMemoria,
-.resultados {
+.resultados-frances,
+.resultados-aleman {
     color: #073763;
     background-color: #cfe2f3;
 }
@@ -113,7 +125,11 @@ button:hover {
     flex-direction: column;
     text-align: center;
     font-size: 1.5rem;
-    padding: 23.8vh;
+    padding: 10vh;
+}
+
+.info-ad div h2 {
+    margin: 3rem;
 }
 
 /* FIN ESTILOS ACERCA DE */
@@ -131,6 +147,7 @@ footer {
     background-color: #16537e;
     display: flex;
     justify-content: center;
+    padding: 4.5vh;
 }
 
 /* FIN FOOTER */
